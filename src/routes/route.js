@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/students/:name', function (req, res) {
-    let studentName = req.params.name
-    console.log(studentName)
-    res.send(studentName)
-})
+// router.get('/students/:name', function (req, res) {
+//     let studentName = req.params.name
+//     console.log(studentName)
+// //     res.send(studentName)
+// })
 // //1 create api and return in array
 
 // router.get('/movies', function (req, res) {
@@ -137,96 +137,151 @@ router.get('/students/:name', function (req, res) {
 
 
 
-let players = [
+// let players = [
+//     {
+
+//         "name": "mohit",
+//         "dob": "1/1/1995",
+//         "gender": "male",
+//         "city": "jalandhar",
+//         "sports": [" swimming"],
+//         "bookings": [
+
+//             {
+//                 "bookingNumber": 1,
+//                 "sportsId": "",
+//                 "centreId": "",
+//                 "type": "private",
+//                 "slot": "12345",
+//                 "bookedOn": "31/08/2021",
+//                 "bookedFor": " 01/09/2021"
+//             },
+//             {
+//                 "bookingNumber": 2,
+//                 "sportsId": "",
+//                 "centreId": "",
+//                 "type": "private",
+//                 "slot": "123456",
+//                 "bookedOn": "31/08/2021",
+//                 "bookedFor": " 03/09/2021"
+//             }
+
+//         ]
+//     },
+
+
+//     {
+//         "name": "Raj",
+//         "dob": "1/3/1998",
+//         "gender": "male",
+//         "city": "jalandhar",
+//         "sports": [" swimming"],
+//         "bookings": []
+
+//     },
+
+//     {
+
+//         "name": "ramni",
+//         "dob": "1/2/1999",
+//         "gender": "male",
+//         "city": "jalandhar",
+//         "sports": [" swimming"],
+//         "bookings": []
+
+
+
+
+//     }
+
+// ]
+
+// let a = players.length;
+
+// // Part 1 ==> Add new player.
+
+// router.post('/player', function (req, res) {
+
+//     let ele = req.body.playerss.name;
+//     let ele1 = req.body.playerss
+//     for (let i = 0; i < a; i++) {
+//         if (ele === players[i].name) {
+//             console.log(ele)
+//             res.send("player already exists")
+
+
+//         }
+//         else if (i === a - 1) {
+
+//             players.push(ele1)
+//             console.log(ele1)
+//             res.send({ data: players, status: true })
+
+//         }
+
+//     }
+// })
+
+
+
+
+
+// // module.exports = router;
+
+
+
+let persons = [
     {
-
-        "name": "mohit",
-        "dob": "1/1/1995",
-        "gender": "male",
-        "city": "jalandhar",
-        "sports": [" swimming"],
-        "bookings": [
-
-            {
-                "bookingNumber": 1,
-                "sportsId": "",
-                "centreId": "",
-                "type": "private",
-                "slot": "12345",
-                "bookedOn": "31/08/2021",
-                "bookedFor": " 01/09/2021"
-            },
-            {
-                "bookingNumber": 2,
-                "sportsId": "",
-                "centreId": "",
-                "type": "private",
-                "slot": "123456",
-                "bookedOn": "31/08/2021",
-                "bookedFor": " 03/09/2021"
-            }
-
-        ]
+        name: "PK",
+        age: 10,
+        votingStatus: false
     },
-
-
     {
-        "name": "Raj",
-        "dob": "1/3/1998",
-        "gender": "male",
-        "city": "jalandhar",
-        "sports": [" swimming"],
-        "bookings": []
-
+        name: "SK",
+        age: 20,
+        votingStatus: false
     },
-
     {
-
-        "name": "ramni",
-        "dob": "1/2/1999",
-        "gender": "male",
-        "city": "jalandhar",
-        "sports": [" swimming"],
-        "bookings": []
-
-
-
-
+        name: "AA",
+        age: 70,
+        votingStatus: false
+    },
+    {
+        name: "SC",
+        age: 5,
+        votingStatus: false
+    },
+    {
+        name: "HO",
+        age: 40,
+        votingStatus: false
     }
-
 ]
 
-let a = players.length;
+router.post("/election", function (req, res) {
+    let votingAge = req.query.votingAge
 
-// Part 1 ==> Add new player.
+    let array = [];
+    for (let i = 0; i < persons.length; i++) {
 
-router.post('/player', function (req, res) {
+        if (persons[i].age > votingAge) {
 
-    let ele = req.body.playerss.name;
-    let ele1 = req.body.playerss
-    for (let i = 0; i < a; i++) {
-        if (ele === players[i].name) {
-            console.log(ele)
-            res.send("player already exists")
-
-
+            persons[i].votingStatus = true
+            array.push(persons[i])
         }
-        else if (i === a - 1) {
-
-            players.push(ele1)
-            console.log(ele1)
-            res.send({ data: players, status: true })
-
-        }
-
     }
+    if (array.length > 0) {
+        return res.send(array)
+    }
+    else {
+        return res.send("no member found above this age")
+    }
+
 })
 
 
 
 
-
-// module.exports = router;
 
 
 module.exports = router;
